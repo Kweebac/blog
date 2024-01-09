@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react";
-import Post from "./Post";
+import { Link } from "react-router-dom";
 
 function Posts() {
   const [posts, setPosts] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      const response = await fetch("http://localhost:5000/api/posts");
-      const posts = await response.json();
-
-      // convert string to formatted date
-      for (const post of posts) {
-        const formattedDate = new Date(post.date);
-        const year = formattedDate.getFullYear();
-        let month = formattedDate.getMonth() + 1;
-        if (month < 10) month = "0" + month;
-        let day = formattedDate.getDate();
-        if (day < 10) day = "0" + day;
-
-        post.date = `${year}/${month}/${day}`;
+      try {
+        const res = await fetch("http://localhost:5000/api/posts");
+        const posts = await res.json();
+        setPosts(posts);
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
       }
-
-      setPosts(posts);
     })();
   }, []);
 
@@ -29,12 +22,24 @@ function Posts() {
     <main>
       <h1>Posts</h1>
       <section className="posts">
-        {posts ? (
+        {posts && posts.length ? (
           posts.map((post) => {
-            return <Post post={post} key={post._id} />;
+            return (
+              <Link to={`/posts/${post._id}`} key={post._id}>
+                <div className="post">
+                  <div>
+                    <span>{post.author.username}</span>
+                    <span>{post.date}</span>
+                  </div>
+                  <h3>{post.title}</h3>
+                </div>
+              </Link>
+            );
           })
-        ) : (
+        ) : isLoading ? (
           <p>Loading...</p>
+        ) : (
+          <p>There are no posts yet</p>
         )}
       </section>
     </main>

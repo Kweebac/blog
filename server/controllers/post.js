@@ -3,7 +3,7 @@ const { body, validationResult } = require("express-validator");
 const Post = require("../models/post");
 
 router.get("/", async (req, res) => {
-  const posts = await Post.find().populate("author").exec();
+  const posts = await Post.find({ private: false }).populate("author").exec();
 
   res.send(posts);
 });
@@ -36,7 +36,7 @@ router.post("/", [
 ]);
 
 router.get("/:postId", async (req, res) => {
-  const post = await Post.findById(req.params.postId);
+  const post = await Post.findOne({ _id: req.params.postId, private: false });
 
   res.send(post);
 });
