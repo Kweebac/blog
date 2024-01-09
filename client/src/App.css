@@ -1,0 +1,27 @@
+body {
+  padding: 1rem;
+}
+
+.posts {
+  display: grid;
+  gap: 1rem;
+}
+.post {
+  background-color: rgb(243, 243, 243);
+  padding: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.post > div:first-of-type {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.post > h3 {
+  padding: 0;
+  margin: 0.5rem 0;
+}
+.post > div:first-of-type > span:nth-of-type(2) {
+  font-size: 0.8rem;
+  color: rgb(73, 73, 73);
+}
