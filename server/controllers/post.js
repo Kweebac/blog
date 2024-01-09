@@ -36,7 +36,9 @@ router.post("/", [
 ]);
 
 router.get("/:postId", async (req, res) => {
-  const post = await Post.findOne({ _id: req.params.postId, private: false });
+  const post = await Post.findOne({ _id: req.params.postId, private: false })
+    .populate("author")
+    .exec();
 
   res.send(post);
 });

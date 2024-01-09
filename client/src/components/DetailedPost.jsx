@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function Post() {
   const [post, setPost] = useState();
@@ -22,7 +22,7 @@ function Post() {
   return (
     <>
       {post ? (
-        <div className="detailedPost" key={post._id}>
+        <div className="post detailedPost" key={post._id}>
           <div>
             <span>{post.author.username}</span>
             <span>{post.date}</span>
@@ -35,6 +35,7 @@ function Post() {
       ) : (
         <p>Post is private or doesn&apos;t exist</p>
       )}
+      <Link to="/posts">All posts</Link>
     </>
   );
 }
