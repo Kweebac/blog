@@ -1,5 +1,8 @@
-body {
+main {
   padding: 1rem;
+}
+body {
+  margin: 0;
 }
 .posts a {
   text-decoration: none;
@@ -32,4 +35,24 @@ body {
 
 .detailedPost {
   margin-bottom: 1rem;
+}
+
+header {
+  padding: 0.5rem 1rem;
+  background-color: lightgray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+header a {
+  text-decoration: none;
+}
+header > div:first-of-type {
+  font-size: 1.5rem;
+  font-weight: bold;
 }

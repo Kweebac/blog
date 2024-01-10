@@ -7,7 +7,8 @@ router.get("/", async (req, res) => {
 
   res.send(posts);
 });
-router.post("/", [
+router.post(
+  "/",
   body("title")
     .escape()
     .trim()
@@ -32,8 +33,8 @@ router.post("/", [
       await newPost.save();
       res.redirect(`/posts/${newPost._id}`);
     } else res.send(newPost);
-  },
-]);
+  }
+);
 
 router.get("/:postId", async (req, res) => {
   const post = await Post.findOne({ _id: req.params.postId, private: false })
@@ -42,7 +43,8 @@ router.get("/:postId", async (req, res) => {
 
   res.send(post);
 });
-router.put("/:postId", [
+router.put(
+  "/:postId",
   body("title")
     .escape()
     .trim()
@@ -68,8 +70,8 @@ router.put("/:postId", [
       await Post.findOneAndReplace({ _id: req.params.postId }, newPost);
       res.redirect(`/posts/${newPost._id}`);
     } else res.send(newPost);
-  },
-]);
+  }
+);
 router.delete("/:postId", async (req, res) => {
   await Post.findByIdAndDelete(req.params.postId);
 
