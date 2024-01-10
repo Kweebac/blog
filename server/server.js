@@ -10,8 +10,8 @@ mongoose.connect(process.env.MONGO_PRIVATE_URL);
 
 const app = express();
 
-app.use(cors());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 app.use("/api", indexRouter);
 app.use("/api/posts", postRouter);
 

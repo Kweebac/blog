@@ -20,7 +20,7 @@ function Post() {
   }, [postId]);
 
   return (
-    <>
+    <main>
       {post ? (
         <div className="post detailedPost" key={post._id}>
           <div>
@@ -35,8 +35,7 @@ function Post() {
       ) : (
         <p>Post is private or doesn&apos;t exist</p>
       )}
-      <Link to="/posts">All posts</Link>
-    </>
+    </main>
   );
 }
 
