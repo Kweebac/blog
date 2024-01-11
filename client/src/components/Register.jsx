@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const [formData, setFormData] = useState();
   const [errors, setErrors] = useState([]);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -11,15 +12,10 @@ function Register() {
       method: "POST",
       body: new URLSearchParams(new FormData(e.target)),
     });
-    res = await res.json();
-<<<<<<< HEAD
-    console.log(2);
-    console.log(res);
+    const errors = await res.json();
 
-=======
->>>>>>> f75d0e6 (Can now register an account)
-    setErrors(res.errors);
-    setFormData(res.formData);
+    if (res === true) return navigate("/posts");
+    setErrors(errors);
   }
 
   return (
@@ -28,25 +24,12 @@ function Register() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label>
-            Username:{" "}
-            <input
-              type="text"
-              name="username"
-              required
-              minLength={3}
-              defaultValue={formData && formData.username}
-            />
+            Username: <input type="text" name="username" required minLength={3} />
           </label>
         </div>
         <div>
           <label>
-            Email:{" "}
-            <input
-              type="email"
-              name="email"
-              required
-              defaultValue={formData && formData.email}
-            />
+            Email: <input type="email" name="email" required />
           </label>
         </div>
         <div>
