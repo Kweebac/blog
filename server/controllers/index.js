@@ -13,7 +13,13 @@ router.post(
     .withMessage("Username must be at least 3 characters")
     .isAlphanumeric()
     .withMessage("Username can only have letters or numbers"),
-  body("email").escape().trim(),
+  body("email")
+    .escape()
+    .trim()
+    .custom(async (value) => {
+      const userExists = await User.find({ email: value }).exec();
+      if (userExists) throw new Error("Email address already exists");
+    }),
   body("password")
     .escape()
     .trim()

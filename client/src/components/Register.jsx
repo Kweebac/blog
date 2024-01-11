@@ -12,10 +12,10 @@ function Register() {
       method: "POST",
       body: new URLSearchParams(new FormData(e.target)),
     });
-    const errors = await res.json();
+    res = await res.json();
 
     if (res === true) return navigate("/posts");
-    setErrors(errors);
+    setErrors(res);
   }
 
   return (
