@@ -31,12 +31,9 @@ router.post(
       const errors = validationResult(req);
       if (errors.isEmpty()) {
         await newUser.save();
-        res.end();
+        res.json(true);
       } else {
-        res.send({
-          errors: errors.array(),
-          formData: newUser,
-        });
+        res.json(errors.array());
       }
     });
   }
