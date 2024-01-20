@@ -4,7 +4,9 @@ const Post = require("../models/Post");
 const { checkAuthenticated } = require("../passport");
 
 router.get("/", async (req, res) => {
-  const posts = await Post.find({ private: false }).populate("author").exec();
+  const posts = await Post.find({ private: false }, "author date title")
+    .populate("author")
+    .exec();
   res.send(posts);
 });
 router.post(
@@ -39,6 +41,7 @@ router.post(
 router.get("/:postId", async (req, res) => {
   const post = await Post.findOne({ _id: req.params.postId, private: false })
     .populate("author")
+    .populate({ path: "comments", populate: "author" })
     .exec();
 
   res.send(post);
@@ -57,13 +60,13 @@ router.put(
     .withMessage("Body must be at least 100 characters"),
 
   async (req, res) => {
-    const newPost = {
+    const newPost = new Post({
       author: req.user._id,
       title: req.body.title,
       body: req.body.body,
       private: req.body.private, // if on change to true, else false
       _id: req.params.postId,
-    };
+    });
 
     const errors = validationResult(req);
     if (errors.isEmpty()) {
