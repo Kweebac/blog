@@ -6,6 +6,7 @@ function Post() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [post, setPost] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [disabled, setDisabled] = useState(false);
   const { postId } = useParams();
 
   useEffect(() => {
@@ -34,7 +35,10 @@ function Post() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("start");
+    setDisabled(true);
+    setTimeout(() => {
+      setDisabled(false);
+    }, 1000);
 
     await fetch("http://localhost:5000/api/comments", {
       method: "POST",
@@ -77,10 +81,10 @@ function Post() {
                 <h3>New comment</h3>
                 <form onSubmit={(e) => handleSubmit(e)}>
                   <div>
-                    <textarea name="body" id="" cols="60" rows="5"></textarea>
+                    <textarea name="body" id="" cols="60" rows="5" required></textarea>
                   </div>
                   <input type="text" name="postId" defaultValue={post._id} hidden />
-                  <button>New comment</button>
+                  <button disabled={disabled}>New comment</button>
                 </form>
               </>
             )}

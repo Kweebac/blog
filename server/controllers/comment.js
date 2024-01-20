@@ -4,7 +4,7 @@ const { body } = require("express-validator");
 
 const router = require("express").Router();
 
-router.post("/", body("body").escape().trim(), async (req, res) => {
+router.post("/", body("body").trim(), async (req, res) => {
   const newComment = await Comment.create({
     author: req.user._id,
     body: req.body.body,
@@ -21,7 +21,7 @@ router.delete("/:commentId", async (req, res) => {
   const commentId = req.params.commentId;
   await Comment.findByIdAndDelete(commentId).exec();
 
-  res.send();
+  res.end();
 });
 
 module.exports = router;

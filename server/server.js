@@ -37,8 +37,6 @@ app.use("/api/comments", commentRouter);
 
 app.listen(5000);
 
-// delete comments (ONLY YOURS) (delete from both places)
-
 // private post property needs to be taken from a form checkbox, which should transform `on` to `true` and ` ` to `false`
 
 // Frontend to edit posts
