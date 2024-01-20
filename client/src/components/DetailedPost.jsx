@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Comment from "./Comment";
 
 function Post() {
@@ -8,6 +8,7 @@ function Post() {
   const [isLoading, setIsLoading] = useState(true);
   const [disabled, setDisabled] = useState(false);
   const { postId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getPost() {
@@ -40,23 +41,28 @@ function Post() {
       setDisabled(false);
     }, 1000);
 
-    await fetch("http://localhost:5000/api/comments", {
+    let res = await fetch("http://localhost:5000/api/comments", {
       method: "POST",
       body: new URLSearchParams(new FormData(e.target)),
       credentials: "include",
     });
+    res = await res.json();
+    if (!res) navigate("/login");
 
-    const res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+    res = await fetch(`http://localhost:5000/api/posts/${postId}`);
     const post = await res.json();
     setPost(post);
   }
 
   async function handleClick(comment) {
-    await fetch(`http://localhost:5000/api/comments/${comment._id}`, {
+    let res = await fetch(`http://localhost:5000/api/comments/${comment._id}`, {
       method: "DELETE",
+      credentials: "include",
     });
+    res = await res.json();
+    if (!res) navigate("/login");
 
-    const res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+    res = await fetch(`http://localhost:5000/api/posts/${postId}`);
     const post = await res.json();
     setPost(post);
   }
