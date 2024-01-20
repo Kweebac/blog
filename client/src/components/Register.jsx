@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      let res = await fetch("http://localhost:5000/api/register", {
+        credentials: "include",
+      });
+      res = await res.json();
+      if (res === false) navigate("/posts");
+    })();
+  }, [navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -14,7 +24,7 @@ function Register() {
     });
     res = await res.json();
 
-    if (res === true) return navigate("/posts");
+    if (res === true) return navigate("/login");
     setErrors(res);
   }
 

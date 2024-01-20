@@ -18,6 +18,7 @@ module.exports = mongoose.model(
     date: { type: String, default: getFormattedDate, required: true },
     title: { type: String, required: true },
     body: { type: String, required: true },
+    comments: [{ type: mongoose.SchemaTypes.ObjectId, ref: "comment" }],
     private: { type: Boolean, default: false, required: true },
   })
 );

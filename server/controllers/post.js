@@ -1,10 +1,10 @@
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
-const Post = require("../models/post");
+const Post = require("../models/Post");
+const { checkAuthenticated } = require("../passport");
 
 router.get("/", async (req, res) => {
   const posts = await Post.find({ private: false }).populate("author").exec();
-
   res.send(posts);
 });
 router.post(
@@ -22,7 +22,7 @@ router.post(
 
   async (req, res) => {
     const newPost = new Post({
-      author: "659457d9ce49300b6d540b5c", // set to logged in user
+      author: req.user._id,
       title: req.body.title,
       body: req.body.body,
       private: req.body.private, // if on change to true, else false
@@ -58,7 +58,7 @@ router.put(
 
   async (req, res) => {
     const newPost = {
-      author: "659457d9ce49300b6d540b5c", // set to logged in user
+      author: req.user._id,
       title: req.body.title,
       body: req.body.body,
       private: req.body.private, // if on change to true, else false
