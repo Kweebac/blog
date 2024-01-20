@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Comment from "./Comment";
 
 function Post() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -46,6 +47,16 @@ function Post() {
     setPost(post);
   }
 
+  async function handleClick(comment) {
+    await fetch(`http://localhost:5000/api/comments/${comment._id}`, {
+      method: "DELETE",
+    });
+
+    const res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+    const post = await res.json();
+    setPost(post);
+  }
+
   return (
     <main>
       {post ? (
@@ -77,13 +88,7 @@ function Post() {
               <>
                 <h1>Comments</h1>
                 {post.comments.map((comment) => (
-                  <div className="post detailedPost" key={comment._id}>
-                    <div>
-                      <span>{comment.author.username}</span>
-                      <span>{comment.date}</span>
-                    </div>
-                    <div>{comment.body}</div>
-                  </div>
+                  <Comment comment={comment} key={comment._id} handleClick={handleClick} />
                 ))}
               </>
             )}

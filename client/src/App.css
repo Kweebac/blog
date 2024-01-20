@@ -19,16 +19,19 @@ body {
   border-radius: 12px;
   cursor: pointer;
 }
-.post > div:first-of-type {
+.post > div:first-of-type,
+.comment > .content > div:first-of-type {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.post > h3 {
+.post > h3,
+.comment > .content > h3 {
   padding: 0;
   margin: 0.5rem 0;
 }
-.post > div:first-of-type > span:nth-of-type(2) {
+.post > div:first-of-type > span:nth-of-type(2),
+.comment > .content > div:first-of-type > span:nth-of-type(2) {
   font-size: 0.8rem;
   color: rgb(73, 73, 73);
 }
@@ -55,4 +58,20 @@ header a {
 header > div:first-of-type {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.comment {
+  width: max-content;
+  background-color: rgb(243, 243, 243);
+  padding: 1rem;
+  border-radius: 12px;
+
+  display: grid;
+  gap: 5rem;
+  grid-auto-flow: column;
+  justify-content: space-between;
+}
+.comment > .delete {
+  height: 2rem;
+  cursor: pointer;
 }

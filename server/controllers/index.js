@@ -77,4 +77,9 @@ router.get("/isAuthenticated", (req, res) => {
   else res.json(false);
 });
 
+router.get("/getUser", (req, res) => {
+  if (req.isAuthenticated()) res.json(req.user);
+  else res.json(false);
+});
+
 module.exports = router;

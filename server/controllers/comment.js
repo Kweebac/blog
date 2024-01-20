@@ -11,10 +11,17 @@ router.post("/", body("body").escape().trim(), async (req, res) => {
   });
 
   const post = await Post.findById(req.body.postId).exec();
-  post.comments.push(newComment._id);
+  post.comments.unshift(newComment._id);
   await post.save();
 
   res.end();
+});
+
+router.delete("/:commentId", async (req, res) => {
+  const commentId = req.params.commentId;
+  await Comment.findByIdAndDelete(commentId).exec();
+
+  res.send();
 });
 
 module.exports = router;
