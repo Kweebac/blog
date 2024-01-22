@@ -43,7 +43,7 @@ function checkNotAuthenticated(req, res, next) {
 
 function checkAdmin(req, res, next) {
   if (req.user && req.user.isAdmin) next();
-  else res.end();
+  else res.json(false);
 }
 
 module.exports = {

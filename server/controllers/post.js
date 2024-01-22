@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const { body, validationResult } = require("express-validator");
+const { body, validationResult, check } = require("express-validator");
 const Post = require("../models/Post");
-const { checkAuthenticated, checkAdmin } = require("../passport");
+const { checkAdmin } = require("../passport");
 
 router.get("/", async (req, res) => {
   const posts = await Post.find({ private: false }, "author date title")
@@ -11,6 +11,7 @@ router.get("/", async (req, res) => {
 });
 router.post(
   "/",
+  checkAdmin,
   body("title")
     .escape()
     .trim()
@@ -23,24 +24,27 @@ router.post(
     .withMessage("Body must be at least 100 characters"),
 
   async (req, res) => {
+    let { title, body, private } = req.body;
+    private = private === "on" ? true : false;
+
     const newPost = new Post({
       author: req.user._id,
-      title: req.body.title,
-      body: req.body.body,
-      private: req.body.private, // if on change to true, else false
+      title,
+      body,
+      private,
     });
 
     const errors = validationResult(req);
     if (errors.isEmpty()) {
       await newPost.save();
-      res.redirect(`/posts/${newPost._id}`);
-    } else res.send(newPost);
+      res.json(`/posts/${newPost._id}`);
+    } else res.json(errors.array());
   }
 );
 
 router.get("/private", checkAdmin, async (req, res) => {
   const posts = await Post.find({}, "author date title private").populate("author").exec();
-  res.send(posts);
+  res.json(posts);
 });
 
 router.get("/:postId", async (req, res) => {
@@ -51,6 +55,7 @@ router.get("/:postId", async (req, res) => {
 
   res.send(post);
 });
+
 router.put(
   "/:postId",
   body("title")

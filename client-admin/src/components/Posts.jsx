@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Posts() {
   const [posts, setPosts] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  console.log(posts);
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -13,13 +13,15 @@ function Posts() {
           credentials: "include",
         });
         const posts = await res.json();
+        if (posts === false) return navigate("/login");
+
         setPosts(posts);
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
       }
     })();
-  }, []);
+  }, [navigate]);
 
   return (
     <main>

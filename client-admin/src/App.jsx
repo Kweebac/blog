@@ -2,6 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 import Posts from "./components/Posts";
 import DetailedPost from "./components/DetailedPost";
+import CreatePost from "./components/CreatePost";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Header from "./components/Header";
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/create" element={<CreatePost />} />
         <Route path="/posts/:postId" element={<DetailedPost />} />
       </Routes>
     </>

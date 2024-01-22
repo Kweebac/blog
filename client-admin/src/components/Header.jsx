@@ -45,7 +45,14 @@ function Header() {
             </li>
           </>
         )}
-        {isAuthenticated && <li onClick={handleLogout}>Logout</li>}
+        {isAuthenticated && (
+          <>
+            <li>
+              <Link to="/posts/create">New post</Link>
+            </li>
+            <li onClick={handleLogout}>Logout</li>
+          </>
+        )}
       </ul>
     </header>
   );

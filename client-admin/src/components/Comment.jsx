@@ -1,19 +1,6 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
 
 function Comment({ comment, handleClick }) {
-  const [user, setUser] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      let res = await fetch("http://localhost:5000/api/getUser", {
-        credentials: "include",
-      });
-      res = await res.json();
-      if (res) setUser(res);
-    })();
-  });
-
   return (
     <div className="comment detailedPost" key={comment._id}>
       <div className="content">

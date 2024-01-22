@@ -2,7 +2,7 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const { checkNotAuthenticated, checkAuthenticated } = require("../passport");
+const { checkNotAuthenticated, checkAuthenticated, checkAdmin } = require("../passport");
 const router = require("express").Router();
 
 router.get("/register", checkNotAuthenticated);
@@ -88,5 +88,7 @@ router.get("/getUser", (req, res) => {
   if (req.isAuthenticated()) res.json(req.user);
   else res.json(false);
 });
+
+router.get("/checkAdmin", checkAdmin, (req, res) => res.json(true));
 
 module.exports = router;
