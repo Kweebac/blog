@@ -13,7 +13,7 @@ function Post() {
   useEffect(() => {
     async function getPost() {
       try {
-        const res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+        const res = await fetch(`http://localhost:5000/api/posts/${postId}/private`);
         const post = await res.json();
         setPost(post);
         setIsLoading(false);
@@ -49,7 +49,7 @@ function Post() {
     res = await res.json();
     if (!res) navigate("/login");
 
-    res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+    res = await fetch(`http://localhost:5000/api/posts/${postId}/private`);
     const post = await res.json();
     setPost(post);
   }
@@ -62,7 +62,7 @@ function Post() {
     res = await res.json();
     if (!res) navigate("/login");
 
-    res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+    res = await fetch(`http://localhost:5000/api/posts/${postId}/private`);
     const post = await res.json();
     setPost(post);
   }

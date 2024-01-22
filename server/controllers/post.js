@@ -55,6 +55,14 @@ router.get("/:postId", async (req, res) => {
 
   res.send(post);
 });
+router.get("/:postId/private", async (req, res) => {
+  const post = await Post.findOne({ _id: req.params.postId })
+    .populate("author")
+    .populate({ path: "comments", populate: "author" })
+    .exec();
+
+  res.send(post);
+});
 
 router.put(
   "/:postId",
