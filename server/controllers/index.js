@@ -50,18 +50,25 @@ router.post(
   }
 );
 
-router.get("/login", checkNotAuthenticated, (req, res, next) => {
-  if (req.session.messages) {
-    const errorMessages = req.session.messages;
-    res.json(errorMessages[errorMessages.length - 1]);
-  } else next();
-});
+router.get("/login", checkNotAuthenticated, (req, res) => res.json(true));
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "http://localhost:5173/posts",
-    failureRedirect: "http://localhost:5173/login",
+    successRedirect: "/api/success",
+    failureRedirect: "/api/failure",
     failureMessage: true,
+  })
+);
+router.get("/success", (req, res) =>
+  res.json({
+    error: false,
+    loggedIn: true,
+  })
+);
+router.get("/failure", (req, res) =>
+  res.json({
+    error: req.session.messages[req.session.messages.length - 1],
+    loggedIn: false,
   })
 );
 

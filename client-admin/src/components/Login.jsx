@@ -11,15 +11,29 @@ function Login() {
         credentials: "include",
       });
       res = await res.json();
+
       if (res === false) navigate("/posts");
-      if (typeof res === "string") setError(res);
     })();
   }, [navigate]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    let res = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      body: new URLSearchParams(new FormData(e.target)),
+      credentials: "include",
+    });
+    res = await res.json();
+
+    if (res.loggedIn) navigate("/posts");
+    else setError(res.error);
+  }
 
   return (
     <main>
       <h1>Login</h1>
-      <form method="post" action="http://localhost:5000/api/login">
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <label>
             Email: <input type="email" name="email" required />

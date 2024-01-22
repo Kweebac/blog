@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Posts() {
   const [posts, setPosts] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -17,7 +16,7 @@ function Posts() {
         setIsLoading(false);
       }
     })();
-  }, [navigate]);
+  }, []);
 
   return (
     <main>

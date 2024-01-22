@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { body, validationResult } = require("express-validator");
 const Post = require("../models/Post");
-const { checkAuthenticated } = require("../passport");
+const { checkAuthenticated, checkAdmin } = require("../passport");
 
 router.get("/", async (req, res) => {
   const posts = await Post.find({ private: false }, "author date title")
@@ -37,6 +37,11 @@ router.post(
     } else res.send(newPost);
   }
 );
+
+router.get("/private", checkAdmin, async (req, res) => {
+  const posts = await Post.find({}, "author date title private").populate("author").exec();
+  res.send(posts);
+});
 
 router.get("/:postId", async (req, res) => {
   const post = await Post.findOne({ _id: req.params.postId, private: false })

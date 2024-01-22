@@ -41,8 +41,14 @@ function checkNotAuthenticated(req, res, next) {
   else next();
 }
 
+function checkAdmin(req, res, next) {
+  if (req.user && req.user.isAdmin) next();
+  else res.end();
+}
+
 module.exports = {
   passportConfig,
   checkAuthenticated,
   checkNotAuthenticated,
+  checkAdmin,
 };

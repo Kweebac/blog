@@ -1,0 +1,89 @@
+main {
+  padding: 1rem;
+}
+body {
+  margin: 0;
+}
+.posts a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.posts {
+  display: grid;
+  gap: 1rem;
+}
+.post {
+  background-color: rgb(243, 243, 243);
+  padding: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.post > div:first-of-type,
+.comment > .content > div:first-of-type {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.post > h3,
+.comment > .content > h3 {
+  padding: 0;
+  margin: 0.5rem 0;
+}
+.post > div:first-of-type > span:nth-of-type(2),
+.comment > .content > div:first-of-type > span:nth-of-type(2) {
+  font-size: 0.8rem;
+  color: rgb(73, 73, 73);
+}
+
+.detailedPost {
+  margin-bottom: 1rem;
+}
+
+header {
+  padding: 0.5rem 1rem;
+  background-color: lightgray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+header a {
+  text-decoration: none;
+}
+header > div:first-of-type {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.comment {
+  width: max-content;
+  background-color: rgb(243, 243, 243);
+  padding: 1rem;
+  border-radius: 12px;
+
+  display: grid;
+  gap: 5rem;
+  grid-auto-flow: column;
+  justify-content: space-between;
+}
+.comment > .delete {
+  height: 2rem;
+  cursor: pointer;
+}
+.published {
+  background-color: lightgreen;
+  width: max-content;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+.unpublished {
+  background-color: rgb(255, 127, 127);
+  width: max-content;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
