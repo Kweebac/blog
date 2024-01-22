@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Comment from "./Comment";
 
 function Post() {
@@ -13,8 +13,11 @@ function Post() {
   useEffect(() => {
     async function getPost() {
       try {
-        const res = await fetch(`http://localhost:5000/api/posts/${postId}/private`);
+        const res = await fetch(`http://localhost:5000/api/posts/${postId}/private`, {
+          credentials: "include",
+        });
         const post = await res.json();
+        if (post === false) navigate("/login");
         setPost(post);
         setIsLoading(false);
       } catch (err) {
@@ -22,7 +25,7 @@ function Post() {
       }
     }
     getPost();
-  }, [postId]);
+  }, [postId, navigate]);
 
   useEffect(() => {
     (async () => {
@@ -49,7 +52,9 @@ function Post() {
     res = await res.json();
     if (!res) navigate("/login");
 
-    res = await fetch(`http://localhost:5000/api/posts/${postId}/private`);
+    res = await fetch(`http://localhost:5000/api/posts/${postId}/private`, {
+      credentials: "include",
+    });
     const post = await res.json();
     setPost(post);
   }
@@ -62,7 +67,9 @@ function Post() {
     res = await res.json();
     if (!res) navigate("/login");
 
-    res = await fetch(`http://localhost:5000/api/posts/${postId}/private`);
+    res = await fetch(`http://localhost:5000/api/posts/${postId}/private`, {
+      credentials: "include",
+    });
     const post = await res.json();
     setPost(post);
   }
@@ -71,6 +78,9 @@ function Post() {
     <main>
       {post ? (
         <>
+          <Link to="edit">Edit post</Link>
+          <br />
+          <br />
           <section>
             <div className="post detailedPost" key={post._id}>
               <div>

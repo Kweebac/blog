@@ -55,7 +55,7 @@ router.get("/:postId", async (req, res) => {
 
   res.send(post);
 });
-router.get("/:postId/private", async (req, res) => {
+router.get("/:postId/private", checkAdmin, async (req, res) => {
   const post = await Post.findOne({ _id: req.params.postId })
     .populate("author")
     .populate({ path: "comments", populate: "author" })
@@ -78,19 +78,25 @@ router.put(
     .withMessage("Body must be at least 100 characters"),
 
   async (req, res) => {
+    let { title, body, private, comments } = req.body;
+    private = private === "on" ? true : false;
+
+    console.log(comments);
+
     const newPost = new Post({
       author: req.user._id,
-      title: req.body.title,
-      body: req.body.body,
-      private: req.body.private, // if on change to true, else false
+      title,
+      body,
+      private,
       _id: req.params.postId,
+      comments,
     });
 
     const errors = validationResult(req);
     if (errors.isEmpty()) {
       await Post.findOneAndReplace({ _id: req.params.postId }, newPost);
-      res.redirect(`/posts/${newPost._id}`);
-    } else res.send(newPost);
+      res.json(`/posts/${newPost._id}`);
+    } else res.send(errors.array());
   }
 );
 router.delete("/:postId", async (req, res) => {

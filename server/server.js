@@ -37,6 +37,4 @@ app.use("/api/comments", commentRouter);
 
 app.listen(5000);
 
-// A button to publish unpublished posts, or to unpublish published ones!
-// Delete posts
-// Edit posts
+// Save comments when editting a post
