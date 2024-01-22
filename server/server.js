@@ -37,10 +37,6 @@ app.use("/api/comments", commentRouter);
 
 app.listen(5000);
 
-// Frontend to edit posts
-
 // A button to publish unpublished posts, or to unpublish published ones!
-// A ‘NEW POST’ form. If you want to get fancy, you could use a rich text editor such as TinyMCE.
-
-// make sure checkAdmin works, and can see private posts on admin frontend
-// private post property needs to be taken from a form checkbox, which should transform `on` to `true` and ` ` to `false`
+// Delete posts
+// Edit posts

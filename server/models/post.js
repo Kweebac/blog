@@ -20,6 +20,5 @@ module.exports = mongoose.model(
     body: { type: String, required: true },
     comments: [{ type: mongoose.SchemaTypes.ObjectId, ref: "comment", required: true }],
     private: { type: Boolean, default: false, required: true },
-    isAdmin: { type: Boolean, default: false, required: true },
   })
 );

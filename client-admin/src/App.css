@@ -87,3 +87,20 @@ header > div:first-of-type {
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
 }
+
+.postItem {
+  height: max-content;
+
+  display: grid;
+  gap: 1rem;
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: center;
+}
+.postItem > .delete {
+  border-radius: 12px;
+
+  width: 2.5rem;
+  cursor: pointer;
+  margin-right: 1rem;
+}

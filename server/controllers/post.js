@@ -96,7 +96,7 @@ router.put(
 router.delete("/:postId", async (req, res) => {
   await Post.findByIdAndDelete(req.params.postId);
 
-  res.redirect("/posts");
+  res.end();
 });
 
 module.exports = router;
