@@ -16,6 +16,7 @@ mongoose.connect(process.env.MONGO_PRIVATE_URL);
 passportConfig();
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(
   cors({
     credentials: true,
@@ -37,4 +38,4 @@ app.use("/api/comments", commentRouter);
 
 app.listen(5000);
 
-// Save comments when editting a post
+// Save comments when editting a post (add the value in the URLSearchParams fetch body)

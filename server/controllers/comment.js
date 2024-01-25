@@ -22,8 +22,15 @@ router.post("/", body("body").trim(), async (req, res) => {
 router.delete("/:commentId", async (req, res) => {
   if (req.user === undefined) return res.json(false);
 
+  // delete comment
   const commentId = req.params.commentId;
   await Comment.findByIdAndDelete(commentId).exec();
+
+  // delete comment from post comments
+  await Post.findOneAndUpdate(
+    { comments: commentId },
+    { $pull: { comments: commentId } }
+  ).exec();
 
   res.json(true);
 });

@@ -22,9 +22,21 @@ export default function EditPost() {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    let body = {
+      comments: postData.comments,
+    };
+    const formData = new FormData(e.target);
+    formData.forEach((value, key) => {
+      body[key] = value;
+    });
+    body = JSON.stringify(body);
+
     let res = await fetch(`http://localhost:5000/api/posts/${postId}`, {
       method: "PUT",
-      body: new URLSearchParams(new FormData(e.target)),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body,
       credentials: "include",
     });
     res = await res.json();

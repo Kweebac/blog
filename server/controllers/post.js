@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { body, validationResult, check } = require("express-validator");
 const Post = require("../models/Post");
 const { checkAdmin } = require("../passport");
+const Comment = require("../models/Comment");
 
 router.get("/", async (req, res) => {
   const posts = await Post.find({ private: false }, "author date title")
@@ -12,13 +13,8 @@ router.get("/", async (req, res) => {
 router.post(
   "/",
   checkAdmin,
-  body("title")
-    .escape()
-    .trim()
-    .isLength({ min: 8 })
-    .withMessage("Title must be at least 8 characters"),
+  body("title").trim().isLength({ min: 8 }).withMessage("Title must be at least 8 characters"),
   body("body")
-    .escape()
     .trim()
     .isLength({ min: 100 })
     .withMessage("Body must be at least 100 characters"),
@@ -81,8 +77,6 @@ router.put(
     let { title, body, private, comments } = req.body;
     private = private === "on" ? true : false;
 
-    console.log(comments);
-
     const newPost = new Post({
       author: req.user._id,
       title,
@@ -100,7 +94,11 @@ router.put(
   }
 );
 router.delete("/:postId", async (req, res) => {
-  await Post.findByIdAndDelete(req.params.postId);
+  const { postId } = req.params;
+  const post = await Post.findById(postId).exec();
+
+  for (const commentId of post.comments) await Comment.findByIdAndDelete(commentId).exec();
+  await Post.deleteOne(post);
 
   res.end();
 });
