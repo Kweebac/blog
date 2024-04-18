@@ -1,5 +1,5 @@
-const Comment = require("../models/Comment");
-const Post = require("../models/Post");
+const Comment = require("../models/comment");
+const Post = require("../models/post");
 const { body } = require("express-validator");
 
 const router = require("express").Router();

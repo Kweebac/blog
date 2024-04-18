@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { body, validationResult, check } = require("express-validator");
-const Post = require("../models/Post");
+const Post = require("../models/post");
 const { checkAdmin } = require("../passport");
-const Comment = require("../models/Comment");
+const Comment = require("../models/comment");
 
 router.get("/", async (req, res) => {
   const posts = await Post.find({ private: false }, "author date title")

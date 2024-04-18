@@ -2,7 +2,7 @@ if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const User = require("./models/User");
+const User = require("./models/user");
 const indexRouter = require("./controllers/index");
 const postRouter = require("./controllers/post");
 const commentRouter = require("./controllers/comment");

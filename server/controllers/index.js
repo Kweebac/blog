@@ -1,5 +1,5 @@
 const { body, validationResult } = require("express-validator");
-const User = require("../models/User");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const { checkNotAuthenticated, checkAuthenticated, checkAdmin } = require("../passport");
@@ -92,3 +92,4 @@ router.get("/getUser", (req, res) => {
 router.get("/checkAdmin", checkAdmin, (req, res) => res.json(true));
 
 module.exports = router;
+
