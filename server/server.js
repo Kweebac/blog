@@ -6,14 +6,13 @@ const User = require("./models/User");
 const indexRouter = require("./controllers/index");
 const postRouter = require("./controllers/post");
 const commentRouter = require("./controllers/comment");
-const passportConfig = require("./passport").passportConfig;
 const passport = require("passport");
 const app = express();
 const session = require("express-session");
 
-mongoose.connect(process.env.MONGO_PRIVATE_URL);
+require("./passport");
 
-passportConfig();
+mongoose.connect(process.env.MONGO_PRIVATE_URL);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -37,5 +36,3 @@ app.use("/api/posts", postRouter);
 app.use("/api/comments", commentRouter);
 
 app.listen(5000);
-
-// Save comments when editting a post (add the value in the URLSearchParams fetch body)
