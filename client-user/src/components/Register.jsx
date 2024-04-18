@@ -7,7 +7,7 @@ function Register() {
 
   useEffect(() => {
     (async () => {
-      let res = await fetch("http://localhost:5000/api/register", {
+      let res = await fetch("https://kweebac-blog-api.up.railway.app/api/register", {
         credentials: "include",
       });
       res = await res.json();
@@ -18,7 +18,7 @@ function Register() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let res = await fetch("http://localhost:5000/api/register", {
+    let res = await fetch("https://kweebac-blog-api.up.railway.app/api/register", {
       method: "POST",
       body: new URLSearchParams(new FormData(e.target)),
     });

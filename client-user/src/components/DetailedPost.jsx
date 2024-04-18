@@ -13,7 +13,7 @@ function Post() {
   useEffect(() => {
     async function getPost() {
       try {
-        const res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+        const res = await fetch(`https://kweebac-blog-api.up.railway.app/api/posts/${postId}`);
         const post = await res.json();
         setPost(post);
         setIsLoading(false);
@@ -26,7 +26,7 @@ function Post() {
 
   useEffect(() => {
     (async () => {
-      let res = await fetch("http://localhost:5000/api/isAuthenticated", {
+      let res = await fetch("https://kweebac-blog-api.up.railway.app/api/isAuthenticated", {
         credentials: "include",
       });
       res = await res.json();
@@ -41,7 +41,7 @@ function Post() {
       setDisabled(false);
     }, 1000);
 
-    let res = await fetch("http://localhost:5000/api/comments", {
+    let res = await fetch("https://kweebac-blog-api.up.railway.app/api/comments", {
       method: "POST",
       body: new URLSearchParams(new FormData(e.target)),
       credentials: "include",
@@ -49,20 +49,23 @@ function Post() {
     res = await res.json();
     if (!res) navigate("/login");
 
-    res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+    res = await fetch(`https://kweebac-blog-api.up.railway.app/api/posts/${postId}`);
     const post = await res.json();
     setPost(post);
   }
 
   async function handleClick(comment) {
-    let res = await fetch(`http://localhost:5000/api/comments/${comment._id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    let res = await fetch(
+      `https://kweebac-blog-api.up.railway.app/api/comments/${comment._id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      }
+    );
     res = await res.json();
     if (!res) navigate("/login");
 
-    res = await fetch(`http://localhost:5000/api/posts/${postId}`);
+    res = await fetch(`https://kweebac-blog-api.up.railway.app/api/posts/${postId}`);
     const post = await res.json();
     setPost(post);
   }

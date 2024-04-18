@@ -35,4 +35,4 @@ app.use("/api", indexRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/comments", commentRouter);
 
-app.listen(5000);
+app.listen(process.env.PORT || 3000, "0.0.0.0");

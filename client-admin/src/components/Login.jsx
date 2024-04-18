@@ -7,7 +7,7 @@ function Login() {
 
   useEffect(() => {
     (async () => {
-      let res = await fetch("http://localhost:5000/api/login", {
+      let res = await fetch("https://kweebac-blog-api.up.railway.app/api/login", {
         credentials: "include",
       });
       res = await res.json();
@@ -19,7 +19,7 @@ function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let res = await fetch("http://localhost:5000/api/login", {
+    let res = await fetch("https://kweebac-blog-api.up.railway.app/api/login", {
       method: "POST",
       body: new URLSearchParams(new FormData(e.target)),
       credentials: "include",

@@ -9,7 +9,7 @@ function Posts() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/posts/private", {
+        const res = await fetch("https://kweebac-blog-api.up.railway.app/api/posts/private", {
           credentials: "include",
         });
         const posts = await res.json();
@@ -24,12 +24,12 @@ function Posts() {
   }, [navigate]);
 
   async function handleClick(post) {
-    await fetch(`http://localhost:5000/api/posts/${post._id}`, {
+    await fetch(`https://kweebac-blog-api.up.railway.app/api/posts/${post._id}`, {
       method: "DELETE",
       credentials: "include",
     });
 
-    let res = await fetch(`http://localhost:5000/api/posts/private`, {
+    let res = await fetch(`https://kweebac-blog-api.up.railway.app/api/posts/private`, {
       credentials: "include",
     });
     res = await res.json();

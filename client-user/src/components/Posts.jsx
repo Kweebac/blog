@@ -8,7 +8,7 @@ function Posts() {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/posts/");
+        const res = await fetch("https://kweebac-blog-api.up.railway.app/api/posts/");
         const posts = await res.json();
         setPosts(posts);
         setIsLoading(false);

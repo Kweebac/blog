@@ -7,7 +7,7 @@ function CreatePost() {
 
   useEffect(() => {
     (async () => {
-      let res = await fetch("http://localhost:5000/api/checkAdmin", {
+      let res = await fetch("https://kweebac-blog-api.up.railway.app/api/checkAdmin", {
         credentials: "include",
       });
       res = await res.json();
@@ -19,7 +19,7 @@ function CreatePost() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    let res = await fetch("http://localhost:5000/api/posts", {
+    let res = await fetch("https://kweebac-blog-api.up.railway.app/api/posts", {
       method: "POST",
       body: new URLSearchParams(new FormData(e.target)),
       credentials: "include",

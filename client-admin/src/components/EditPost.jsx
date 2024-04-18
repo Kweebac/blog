@@ -9,9 +9,12 @@ export default function EditPost() {
 
   useEffect(() => {
     (async () => {
-      let res = await fetch(`http://localhost:5000/api/posts/${postId}/private`, {
-        credentials: "include",
-      });
+      let res = await fetch(
+        `https://kweebac-blog-api.up.railway.app/api/posts/${postId}/private`,
+        {
+          credentials: "include",
+        }
+      );
       res = await res.json();
 
       if (res === false) navigate("/login");
@@ -31,7 +34,7 @@ export default function EditPost() {
     });
     body = JSON.stringify(body);
 
-    let res = await fetch(`http://localhost:5000/api/posts/${postId}`, {
+    let res = await fetch(`https://kweebac-blog-api.up.railway.app/api/posts/${postId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

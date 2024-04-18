@@ -7,7 +7,7 @@ function Header() {
 
   useEffect(() => {
     (async () => {
-      let res = await fetch("http://localhost:5000/api/isAuthenticated", {
+      let res = await fetch("https://kweebac-blog-api.up.railway.app/api/isAuthenticated", {
         credentials: "include",
       });
       res = await res.json();
@@ -17,7 +17,7 @@ function Header() {
 
   async function handleLogout() {
     try {
-      let res = await fetch("http://localhost:5000/api/logout", {
+      let res = await fetch("https://kweebac-blog-api.up.railway.app/api/logout", {
         credentials: "include",
       });
       res = await res.json();

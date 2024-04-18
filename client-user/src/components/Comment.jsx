@@ -6,7 +6,7 @@ function Comment({ comment, handleClick }) {
 
   useEffect(() => {
     (async () => {
-      let res = await fetch("http://localhost:5000/api/getUser", {
+      let res = await fetch("https://kweebac-blog-api.up.railway.app/api/getUser", {
         credentials: "include",
       });
       res = await res.json();
